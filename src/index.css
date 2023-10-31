@@ -1,13 +1,396 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --color-theme: #00ff6e;
+  --color-accent: #00187f;
+
+  --color-light: #f1f3f5;
+  --color-dark: #040414;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-light);
+
+  background-image: url("/public/img/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+/*---------
+a Bank Account 
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  font-size: 4rem;
+  text-align: center;
+}
+
+button {
+  font-size: 2rem;
+}
+
+---------*/
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  padding: 3rem;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.main {
+  margin: 0 auto;
+  width: 90%;
+  background-color: var(--color-dark);
+  padding: 4rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  border-radius: 1rem;
+}
+
+.app-header {
+  /*width: 66rem;*/
+  width: 100%;
+
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+}
+
+.error {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 2rem;
+  background-color: #495057;
+  border-radius: 100px;
+}
+
+img {
+  width: max(8vw, 4rem);
+}
+
+h1 {
+  font-family: "Codystar";
+  font-size: max(5vw, 2.5rem);
+}
+
+h2 {
+  color: #6f33b4;
+  font-size: 3.6rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 4rem;
+}
+
+h4 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+}
+
+.start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress {
+  width: 60%;
+  /* margin-bottom: 2rem;*/
+  display: grid;
+  justify-content: space-between;
+  gap: 1.2rem;
+  grid-template-columns: auto auto;
+  font-size: 1.8rem;
+  color: var(--color-light);
+}
+
+progress {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 12px;
+  grid-column: 1 / -1;
+}
+
+main div {
+}
+
+footer {
+  width: 60%;
+}
+
+::-webkit-progress-bar {
+  background-color: var(--color-light);
+  border-radius: 100px;
+}
+::-webkit-progress-value {
+  background-color: var(--color-theme);
+  border-radius: 100px;
+}
+
+.btn {
+  display: block;
+  font-family: inherit;
+  color: inherit;
+  font-size: 2rem;
+  /* border: 2px solid var(--color-dark);
+   background-color: var(--color-dark);*/
+  background: none;
+  border: 1px solid var(--color-light);
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 0.3s;
+}
+
+.btn:not([disabled]):hover {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+
+.btn-option:not([disabled]):hover {
+  transform: translateX(1.2rem);
+}
+
+.btn[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.btn-ui {
+  float: right;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.btn-option {
+  width: 100%;
+  text-align: left;
+}
+
+.btn-option.correct {
+  background-color: var(--color-theme);
+  border: 2px solid var(--color-theme);
+  color: var(--color-light);
+}
+.btn-option.wrong {
+  background-color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+.answer {
+  transform: translateX(2rem);
+}
+
+.result {
+  background-color: var(--color-theme);
+  color: var(--color-dark);
+  border-radius: 100px;
+  text-align: center;
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.result span {
+  font-size: 2.2rem;
+}
+
+.highscore {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  gap: 1.6rem;
+
+  color: var(--color-light);
+  font-size: 1.4rem;
+}
+
+.timer {
+  float: left;
+  font-size: 1.8rem;
+  color: var(--color-light);
+  border: 1px solid var(--color-light);
+  padding: 1.35rem 2.8rem;
+  border-radius: 100px;
+}
+
+/* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
+.loader {
+  width: 50px;
+  height: 24px;
+  background: radial-gradient(circle closest-side, currentColor 90%, #0000) 0%
+      50%,
+    radial-gradient(circle closest-side, currentColor 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, currentColor 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 12px;
+  background-repeat: no-repeat;
+  animation: loader 1s infinite linear;
+}
+
+@keyframes loader {
+  20% {
+    background-position: 0% 0%, 50% 50%, 100% 50%;
+  }
+  40% {
+    background-position: 0% 100%, 50% 0%, 100% 50%;
+  }
+  60% {
+    background-position: 0% 50%, 50% 100%, 100% 0%;
+  }
+  80% {
+    background-position: 0% 50%, 50% 50%, 100% 100%;
+  }
+}
+
+/* ********** */
+/* First counter example */
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 6rem;
+}
+
+.counter * {
+  font-size: inherit;
+  padding: 0.8rem;
+}
+
+/* ----------------------------------------------------- */
+@media (max-width: 900px) {
+  .app {
+    padding: 2rem;
+  }
+
+  .main {
+    width: 100%;
+    padding: 4rem 3rem;
+  }
+
+  .progress {
+    width: 95%;
+  }
+
+  footer {
+    width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  h4 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    font-size: 1.6rem;
+    padding: 1rem 2.4rem;
+  }
+
+  .timer {
+    font-size: 1.8rem;
+    padding: 1rem 2.4rem;
+  }
+
+  .progress {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .app {
+    padding: 0;
+  }
+
+  .app-header {
+    padding: 3rem 1rem 2rem 1rem;
+    margin-bottom: 0;
+  }
+
+  .main {
+    width: 100%;
+    min-height: 80vh;
+    border-radius: 0;
+  }
+
+  footer {
+    width: 100%;
+  }
+
+  .result {
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    font-size: 1.8rem;
+  }
+
+  .result span {
+    font-size: 2rem;
+  }
+
+  .highscore {
+    font-size: 1.6rem;
+  }
 }
