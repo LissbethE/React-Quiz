@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Loader from "./components/Loader";
@@ -10,6 +11,8 @@ import Progress from "./components/Progress";
 import FinishScreen from "./components/FinishScreen";
 import Timer from "./components/Timer";
 import Footer from "./components/Footer";
+
+import data from "./data/questions.json";
 
 ////////////////////////////////////
 const SECS_PER_QUESTION = 30;
@@ -27,9 +30,6 @@ const initialState = {
 };
 
 const reducer = function (state, action) {
-  //console.log("Paso 2 ---");
-  // console.log("state: ", state, " action: ", action);
-
   switch (action.type) {
     case "dataReceived":
       return { ...state, questions: action.payload, status: "ready" };
@@ -41,7 +41,7 @@ const reducer = function (state, action) {
       return {
         ...state,
         status: "active",
-        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
+        secondsRemaining: state?.questions?.length * SECS_PER_QUESTION,
       };
 
     case "newAnswer":
@@ -100,9 +100,9 @@ function App() {
 
   ////////////////////////////////////
 
-  const numQuestions = questions.length;
+  const numQuestions = questions?.length;
 
-  const maxPossiblePoints = questions.reduce(
+  const maxPossiblePoints = questions?.reduce(
     (prev, cur) => prev + cur.points,
     0
   );
@@ -112,10 +112,7 @@ function App() {
   useEffect(function () {
     const fetchQuestions = async function () {
       try {
-        const response = await fetch("http://localhost:8000/questions");
-        const data = await response.json();
-
-        dispatch({ type: "dataReceived", payload: data });
+        dispatch({ type: "dataReceived", payload: data.questions });
       } catch (err) {
         console.log("💥ERROR: ", err);
         dispatch({ type: "dataFailed" });
